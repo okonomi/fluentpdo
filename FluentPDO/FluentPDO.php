@@ -21,101 +21,109 @@ include_once 'InsertQuery.php';
 include_once 'UpdateQuery.php';
 include_once 'DeleteQuery.php';
 
-class FluentPDO {
+class FluentPDO
+{
+    private $pdo, $structure;
 
-	private $pdo, $structure;
+    /** @var boolean|callback */
+    public $debug;
 
-	/** @var boolean|callback */
-	public $debug;
+    function __construct(PDO $pdo, FluentStructure $structure = null)
+    {
+        $this->pdo = $pdo;
+        if (!$structure) {
+            $structure = new FluentStructure;
+        }
+        $this->structure = $structure;
+    }
 
-	function __construct(PDO $pdo, FluentStructure $structure = null) {
-		$this->pdo = $pdo;
-		if (!$structure) {
-			$structure = new FluentStructure;
-		}
-		$this->structure = $structure;
-	}
+    /** Create SELECT query from $table
+     * @param string $table db table name
+     * @param integer $primaryKey return one row by primary key
+     * @return \SelectQuery
+     */
+    public function from($table, $primaryKey = null)
+    {
+        $query = new SelectQuery($this, $table);
+        if ($primaryKey) {
+            $tableTable = $query->getFromTable();
+            $tableAlias = $query->getFromAlias();
+            $primaryKeyName = $this->structure->getPrimaryKey($tableTable);
+            $query = $query->where("$tableAlias.$primaryKeyName", $primaryKey);
+        }
+        return $query;
+    }
 
-	/** Create SELECT query from $table
-	 * @param string $table  db table name
-	 * @param integer $primaryKey  return one row by primary key
-	 * @return \SelectQuery
-	 */
-	public function from($table, $primaryKey = null) {
-		$query = new SelectQuery($this, $table);
-		if ($primaryKey) {
-			$tableTable = $query->getFromTable();
-			$tableAlias = $query->getFromAlias();
-			$primaryKeyName = $this->structure->getPrimaryKey($tableTable);
-			$query = $query->where("$tableAlias.$primaryKeyName", $primaryKey);
-		}
-		return $query;
-	}
+    /** Create INSERT INTO query
+     *
+     * @param string $table
+     * @param array $values you can add one or multi rows array @see docs
+     * @return \InsertQuery
+     */
+    public function insertInto($table, $values = array())
+    {
+        $query = new InsertQuery($this, $table, $values);
+        return $query;
+    }
 
-	/** Create INSERT INTO query
-	 *
-	 * @param string $table
-	 * @param array $values  you can add one or multi rows array @see docs
-	 * @return \InsertQuery
-	 */
-	public function insertInto($table, $values = array()) {
-		$query = new InsertQuery($this, $table, $values);
-		return $query;
-	}
+    /** Create UPDATE query
+     *
+     * @param string $table
+     * @param array|string $set
+     * @param string $primaryKey
+     *
+     * @return \UpdateQuery
+     */
+    public function update($table, $set = array(), $primaryKey = null)
+    {
+        $query = new UpdateQuery($this, $table);
+        $query->set($set);
+        if ($primaryKey) {
+            $primaryKeyName = $this->getStructure()->getPrimaryKey($table);
+            $query = $query->where($primaryKeyName, $primaryKey);
+        }
+        return $query;
+    }
 
-	/** Create UPDATE query
-	 *
-	 * @param string $table
-	 * @param array|string $set
-	 * @param string $primaryKey
-	 *
-	 * @return \UpdateQuery
-	 */
-	public function update($table, $set = array(), $primaryKey = null) {
-		$query = new UpdateQuery($this, $table);
-		$query->set($set);
-		if ($primaryKey) {
-			$primaryKeyName = $this->getStructure()->getPrimaryKey($table);
-			$query = $query->where($primaryKeyName, $primaryKey);
-		}
-		return $query;
-	}
+    /** Create DELETE query
+     *
+     * @param string $table
+     * @param string $primaryKey delete only row by primary key
+     * @return \DeleteQuery
+     */
+    public function delete($table, $primaryKey = null)
+    {
+        $query = new DeleteQuery($this, $table);
+        if ($primaryKey) {
+            $primaryKeyName = $this->getStructure()->getPrimaryKey($table);
+            $query = $query->where($primaryKeyName, $primaryKey);
+        }
+        return $query;
+    }
 
-	/** Create DELETE query
-	 *
-	 * @param string $table
-	 * @param string $primaryKey  delete only row by primary key
-	 * @return \DeleteQuery
-	 */
-	public function delete($table, $primaryKey = null) {
-		$query = new DeleteQuery($this, $table);
-		if ($primaryKey) {
-			$primaryKeyName = $this->getStructure()->getPrimaryKey($table);
-			$query = $query->where($primaryKeyName, $primaryKey);
-		}
-		return $query;
-	}
+    /** Create DELETE FROM query
+     *
+     * @param string $table
+     * @param string $primaryKey
+     * @return \DeleteQuery
+     */
+    public function deleteFrom($table, $primaryKey = null)
+    {
+        $args = func_get_args();
+        return call_user_func_array(array($this, 'delete'), $args);
+    }
 
-	/** Create DELETE FROM query
-	 *
-	 * @param string $table
-	 * @param string $primaryKey
-	 * @return \DeleteQuery
-	 */
-	public function deleteFrom($table, $primaryKey = null) {
-		$args = func_get_args();
-		return call_user_func_array(array($this, 'delete'), $args);
-	}
+    /** @return \PDO
+     */
+    public function getPdo()
+    {
+        return $this->pdo;
+    }
 
-	/** @return \PDO
-	 */
-	public function getPdo() {
-		return $this->pdo;
-	}
-
-	/** @return \FluentStructure
-	 */
-	public function getStructure() {
-		return $this->structure;
-	}
+    /** @return \FluentStructure
+     */
+    public function getStructure()
+    {
+        return $this->structure;
+    }
 }
