@@ -1,8 +1,10 @@
 <?php
 
+namespace FluentPDO;
+
 /** Base query builder
  */
-abstract class BaseQuery implements IteratorAggregate
+abstract class BaseQuery implements \IteratorAggregate
 {
     /** @var FluentPDO */
     private $fpdo;
@@ -10,7 +12,7 @@ abstract class BaseQuery implements IteratorAggregate
     /** @var array of definition clauses */
     protected $clauses = array();
 
-    /** @var PDOStatement */
+    /** @var \PDOStatement */
     private $result;
 
     /** @var float */
@@ -84,7 +86,7 @@ abstract class BaseQuery implements IteratorAggregate
     }
 
     /** Implements method from IteratorAggregate
-     * @return PDOStatement
+     * @return \PDOStatement
      */
     public function getIterator()
     {
@@ -92,7 +94,7 @@ abstract class BaseQuery implements IteratorAggregate
     }
 
     /** Execute query with earlier added parameters
-     * @return PDOStatement
+     * @return \PDOStatement
      */
     public function execute()
     {
@@ -111,12 +113,12 @@ abstract class BaseQuery implements IteratorAggregate
 
         if ($this->object !== false) {
             if (class_exists($this->object)) {
-                $result->setFetchMode(PDO::FETCH_CLASS, $this->object);
+                $result->setFetchMode(\PDO::FETCH_CLASS, $this->object);
             } else {
-                $result->setFetchMode(PDO::FETCH_OBJ);
+                $result->setFetchMode(\PDO::FETCH_OBJ);
             }
-        } elseif ($this->fpdo->getPdo()->getAttribute(PDO::ATTR_DEFAULT_FETCH_MODE) == PDO::FETCH_BOTH) {
-            $result->setFetchMode(PDO::FETCH_ASSOC);
+        } elseif ($this->fpdo->getPdo()->getAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE) == \PDO::FETCH_BOTH) {
+            $result->setFetchMode(\PDO::FETCH_ASSOC);
         }
 
         $time = microtime(true);

@@ -4,6 +4,8 @@ Basic operations
 <?php
 include_once dirname(__FILE__) . "/connect.inc.php";
 
+use FluentPDO\FluentUtils;
+
 echo "'" . FluentUtils::toUpperWords('one') . "'\n";
 echo "'" . FluentUtils::toUpperWords(' one ') . "'\n";
 echo "'" . FluentUtils::toUpperWords('oneTwo') . "'\n";

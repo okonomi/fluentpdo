@@ -1,5 +1,7 @@
 <?php
 
+namespace FluentPDO;
+
 /** UPDATE query builder
  *
  * @method UpdateQuery  leftJoin(string $statement) add LEFT JOIN to query

@@ -5,6 +5,8 @@ callable arguments for FluentStructure
 include_once dirname(__FILE__) . "/connect.inc.php";
 /* @var $fpdo FluentPDO */
 
+use FluentPDO\FluentStructure;
+
 $structure = new FluentStructure();
 echo $structure->getForeignKey('user') . "\n";
 echo $structure->getPrimaryKey('user') . "\n";

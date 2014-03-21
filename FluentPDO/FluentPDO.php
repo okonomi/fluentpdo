@@ -11,15 +11,7 @@
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU General Public License, version 2 (one or other)
  */
 
-include_once 'FluentStructure.php';
-include_once 'FluentUtils.php';
-include_once 'FluentLiteral.php';
-include_once 'BaseQuery.php';
-include_once 'CommonQuery.php';
-include_once 'SelectQuery.php';
-include_once 'InsertQuery.php';
-include_once 'UpdateQuery.php';
-include_once 'DeleteQuery.php';
+namespace FluentPDO;
 
 class FluentPDO
 {
@@ -28,7 +20,7 @@ class FluentPDO
     /** @var boolean|callback */
     public $debug;
 
-    function __construct(PDO $pdo, FluentStructure $structure = null)
+    public function __construct(\PDO $pdo, FluentStructure $structure = null)
     {
         $this->pdo = $pdo;
         if (!$structure) {
@@ -40,7 +32,7 @@ class FluentPDO
     /** Create SELECT query from $table
      * @param string $table db table name
      * @param integer $primaryKey return one row by primary key
-     * @return \SelectQuery
+     * @return SelectQuery
      */
     public function from($table, $primaryKey = null)
     {
@@ -58,7 +50,7 @@ class FluentPDO
      *
      * @param string $table
      * @param array $values you can add one or multi rows array @see docs
-     * @return \InsertQuery
+     * @return InsertQuery
      */
     public function insertInto($table, $values = array())
     {
@@ -72,7 +64,7 @@ class FluentPDO
      * @param array|string $set
      * @param string $primaryKey
      *
-     * @return \UpdateQuery
+     * @return UpdateQuery
      */
     public function update($table, $set = array(), $primaryKey = null)
     {
@@ -89,7 +81,7 @@ class FluentPDO
      *
      * @param string $table
      * @param string $primaryKey delete only row by primary key
-     * @return \DeleteQuery
+     * @return DeleteQuery
      */
     public function delete($table, $primaryKey = null)
     {
@@ -105,7 +97,7 @@ class FluentPDO
      *
      * @param string $table
      * @param string $primaryKey
-     * @return \DeleteQuery
+     * @return DeleteQuery
      */
     public function deleteFrom($table, $primaryKey = null)
     {
@@ -120,7 +112,7 @@ class FluentPDO
         return $this->pdo;
     }
 
-    /** @return \FluentStructure
+    /** @return FluentStructure
      */
     public function getStructure()
     {

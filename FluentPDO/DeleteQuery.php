@@ -1,5 +1,7 @@
 <?php
 
+namespace FluentPDO;
+
 /** DELETE query builder
  *
  * @method DeleteQuery  leftJoin(string $statement) add LEFT JOIN to query
