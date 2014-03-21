@@ -21,7 +21,9 @@ abstract class BaseQuery implements \IteratorAggregate
     /** @var bool */
     private $object = false;
 
-    protected $statements = array(), $parameters = array();
+    protected $statements = array();
+
+    protected $parameters = array();
 
     protected function __construct(FluentPDO $fpdo, $clauses)
     {
@@ -171,7 +173,7 @@ abstract class BaseQuery implements \IteratorAggregate
     }
 
     /**
-     * @return \FluentStructure
+     * @return FluentStructure
      */
     protected function getStructure()
     {
@@ -209,14 +211,16 @@ abstract class BaseQuery implements \IteratorAggregate
     public function getQuery($formated = true)
     {
         $query = $this->buildQuery();
-        if ($formated) $query = FluentUtils::formatQuery($query);
+        if ($formated) {
+            $query = FluentUtils::formatQuery($query);
+        }
         return $query;
     }
 
     /**
      * Generate query
      * @return string
-     * @throws Exception
+     * @throws \Exception
      */
     protected function buildQuery()
     {
@@ -230,7 +234,7 @@ abstract class BaseQuery implements \IteratorAggregate
                 } elseif (is_callable($separator)) {
                     $query .= call_user_func($separator);
                 } else {
-                    throw new Exception("Clause '$clause' is incorrectly set to '$separator'.");
+                    throw new \Exception("Clause '$clause' is incorrectly set to '$separator'.");
                 }
             }
         }
@@ -260,7 +264,9 @@ abstract class BaseQuery implements \IteratorAggregate
                     }
                 }
             } else {
-                if ($clauses) $parameters[] = $clauses;
+                if ($clauses) {
+                    $parameters[] = $clauses;
+                }
             }
         }
         return $parameters;
@@ -289,7 +295,7 @@ abstract class BaseQuery implements \IteratorAggregate
 
     private function formatValue($val)
     {
-        if ($val instanceof DateTime) {
+        if ($val instanceof \DateTime) {
             return $val->format("Y-m-d H:i:s"); //! may be driver specific
         }
         return $val;

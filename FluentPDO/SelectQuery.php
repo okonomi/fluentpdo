@@ -18,7 +18,9 @@ namespace FluentPDO;
  */
 class SelectQuery extends CommonQuery
 {
-    private $fromTable, $fromAlias;
+    private $fromTable;
+
+    private $fromAlias;
 
     public function __construct(FluentPDO $fpdo, $from)
     {

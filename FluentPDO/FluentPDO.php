@@ -15,7 +15,9 @@ namespace FluentPDO;
 
 class FluentPDO
 {
-    private $pdo, $structure;
+    private $pdo;
+
+    private $structure;
 
     /** @var boolean|callback */
     public $debug;

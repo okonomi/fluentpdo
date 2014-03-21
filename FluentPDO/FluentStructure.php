@@ -4,9 +4,11 @@ namespace FluentPDO;
 
 class FluentStructure
 {
-    private $primaryKey, $foreignKey;
+    private $primaryKey;
 
-    function __construct($primaryKey = 'id', $foreignKey = '%s_id')
+    private $foreignKey;
+
+    public function __construct($primaryKey = 'id', $foreignKey = '%s_id')
     {
         if ($foreignKey === null) {
             $foreignKey = $primaryKey;

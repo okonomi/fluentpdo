@@ -74,11 +74,17 @@ abstract class CommonQuery extends BaseQuery
     public function __call($clause, $parameters = array())
     {
         $clause = FluentUtils::toUpperWords($clause);
-        if ($clause == 'GROUP') $clause = 'GROUP BY';
-        if ($clause == 'ORDER') $clause = 'ORDER BY';
-        if ($clause == 'FOOT NOTE') $clause = "\n--";
+        if ($clause == 'GROUP') {
+            $clause = 'GROUP BY';
+        }
+        if ($clause == 'ORDER') {
+            $clause = 'ORDER BY';
+        }
+        if ($clause == 'FOOT NOTE') {
+            $clause = "\n--";
+        }
         $statement = array_shift($parameters);
-        if (strpos($clause, 'JOIN') !== FALSE) {
+        if (strpos($clause, 'JOIN') !== false) {
             return $this->addJoinStatements($clause, $statement, $parameters);
         }
         return $this->addStatement($clause, $statement, $parameters);
@@ -102,7 +108,7 @@ abstract class CommonQuery extends BaseQuery
             $this->joins = array();
             return $this->resetClause('JOIN');
         }
-        if (array_search(substr($statement, 0, -1), $this->joins) !== FALSE) {
+        if (array_search(substr($statement, 0, -1), $this->joins) !== false) {
             return $this;
         }
 
@@ -118,7 +124,9 @@ abstract class CommonQuery extends BaseQuery
         }
 
         if (strpos(strtoupper($statement), ' ON ') || strpos(strtoupper($statement), ' USING')) {
-            if (!$joinAlias) $joinAlias = $joinTable;
+            if (!$joinAlias) {
+                $joinAlias = $joinTable;
+            }
             if (in_array($joinAlias, $this->joins)) {
                 return $this;
             } else {
@@ -138,18 +146,26 @@ abstract class CommonQuery extends BaseQuery
             $mainTable = $this->statements['FROM'];
         } elseif (isset($this->statements['UPDATE'])) {
             $mainTable = $this->statements['UPDATE'];
+        } else {
+            $mainTable = '';
         }
         $lastItem = array_pop($matches[1]);
         array_push($matches[1], $lastItem);
         foreach ($matches[1] as $joinItem) {
-            if ($mainTable == substr($joinItem, 0, -1)) continue;
+            if ($mainTable == substr($joinItem, 0, -1)) {
+                continue;
+            }
 
             # use $joinAlias only for $lastItem
             $alias = '';
-            if ($joinItem == $lastItem) $alias = $joinAlias;
+            if ($joinItem == $lastItem) {
+                $alias = $joinAlias;
+            }
 
             $newJoin = $this->createJoinStatement($clause, $mainTable, $joinItem, $alias);
-            if ($newJoin) $this->addStatement('JOIN', $newJoin, $parameters);
+            if ($newJoin) {
+                $this->addStatement('JOIN', $newJoin, $parameters);
+            }
             $mainTable = $joinItem;
         }
         return $this;
@@ -203,7 +219,10 @@ abstract class CommonQuery extends BaseQuery
         $statementsWithReferences = array('WHERE', 'SELECT', 'GROUP BY', 'ORDER BY');
         foreach ($statementsWithReferences as $clause) {
             if (array_key_exists($clause, $this->statements)) {
-                $this->statements[$clause] = array_map(array($this, 'createUndefinedJoins'), $this->statements[$clause]);
+                $this->statements[$clause] = array_map(
+                    array($this, 'createUndefinedJoins'),
+                    $this->statements[$clause]
+                );
             }
         }
 
@@ -229,13 +248,17 @@ abstract class CommonQuery extends BaseQuery
 
         # don't rewrite table from other databases
         foreach ($this->joins as $join) {
-            if (strpos($join, '.') !== FALSE && strpos($statement, $join) === 0) {
+            if (strpos($join, '.') !== false && strpos($statement, $join) === 0) {
                 return $statement;
             }
         }
 
         # remove extra referenced tables (rewrite tab1.tab2:col => tab2.col)
-        $statement = preg_replace('~(?:\\b[a-z_][a-z0-9_.:]*[.:])?([a-z_][a-z0-9_]*)[.:]([a-z_*])~i', '\\1.\\2', $statement);
+        $statement = preg_replace(
+            '~(?:\\b[a-z_][a-z0-9_.:]*[.:])?([a-z_][a-z0-9_]*)[.:]([a-z_*])~i',
+            '\\1.\\2',
+            $statement
+        );
         return $statement;
     }
 }

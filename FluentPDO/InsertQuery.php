@@ -39,12 +39,13 @@ class InsertQuery extends BaseQuery
 
     /** Add ON DUPLICATE KEY UPDATE
      * @param array $values
-     * @return \InsertQuery
+     * @return InsertQuery
      */
     public function onDuplicateKeyUpdate($values)
     {
         $this->statements['ON DUPLICATE KEY UPDATE'] = array_merge(
-            $this->statements['ON DUPLICATE KEY UPDATE'], $values
+            $this->statements['ON DUPLICATE KEY UPDATE'],
+            $values
         );
         return $this;
     }
@@ -52,13 +53,13 @@ class InsertQuery extends BaseQuery
     /**
      * Add VALUES
      * @param $values
-     * @return \InsertQuery
-     * @throws Exception
+     * @return InsertQuery
+     * @throws \Exception
      */
     public function values($values)
     {
         if (!is_array($values)) {
-            throw new Exception('Param VALUES for INSERT query must be array');
+            throw new \Exception('Param VALUES for INSERT query must be array');
         }
         $first = current($values);
         if (is_string(key($values))) {
@@ -74,7 +75,7 @@ class InsertQuery extends BaseQuery
     }
 
     /** INSERT IGNORE - insert operation fails silently
-     * @return \InsertQuery
+     * @return InsertQuery
      */
     public function ignore()
     {
@@ -114,7 +115,7 @@ class InsertQuery extends BaseQuery
         # check if all $keys are strings
         foreach ($oneValue as $key => $value) {
             if (!is_string($key)) {
-                throw new Exception('INSERT query: All keys of value array have to be strings.');
+                throw new \Exception('INSERT query: All keys of value array have to be strings.');
             }
         }
         if (!$this->firstValue) {
@@ -124,7 +125,7 @@ class InsertQuery extends BaseQuery
             $this->columns = array_keys($oneValue);
         }
         if ($this->columns != array_keys($oneValue)) {
-            throw new Exception('INSERT query: All VALUES have to same keys (columns).');
+            throw new \Exception('INSERT query: All VALUES have to same keys (columns).');
         }
         $this->statements['VALUES'][] = $oneValue;
     }

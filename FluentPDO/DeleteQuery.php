@@ -35,7 +35,7 @@ class DeleteQuery extends CommonQuery
     }
 
     /** DELETE IGNORE - Delete operation fails silently
-     * @return \DeleteQuery
+     * @return DeleteQuery
      */
     public function ignore()
     {

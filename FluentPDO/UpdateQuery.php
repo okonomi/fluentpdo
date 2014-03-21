@@ -33,9 +33,9 @@ class UpdateQuery extends CommonQuery
 
     /**
      * @param string|array $fieldOrArray
-     * @param null $value
+     * @param bool|null $value
+     * @throws \Exception
      * @return $this
-     * @throws Exception
      */
     public function set($fieldOrArray, $value = false)
     {
@@ -46,7 +46,7 @@ class UpdateQuery extends CommonQuery
             $this->statements['SET'][$fieldOrArray] = $value;
         } else {
             if (!is_array($fieldOrArray)) {
-                throw new Exception('You must pass a value, or provide the SET list as an associative array. column => value');
+                throw new \Exception('You must pass a value, or provide the SET list as an associative array. column => value');
             } else {
                 foreach ($fieldOrArray as $field => $value) {
                     $this->statements['SET'][$field] = $value;
@@ -59,7 +59,7 @@ class UpdateQuery extends CommonQuery
 
     /** Execute update query
      * @param boolean $getResultAsPdoStatement true to return the pdo statement instead of row count
-     * @return int|boolean|PDOStatement
+     * @return int|boolean|\PDOStatement
      */
     public function execute($getResultAsPdoStatement = false)
     {
