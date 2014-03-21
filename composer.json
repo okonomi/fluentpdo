@@ -11,6 +11,8 @@
         }
     ],
     "autoload": {
-        "files": ["FluentPDO/FluentPDO.php"]
+        "psr-4": {
+            "FluentPDO": "FluentPDO"
+        }
     }
 }
