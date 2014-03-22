@@ -37,7 +37,7 @@ class UpdateQuery extends CommonQuery
 
     /**
      * @param string|array $fieldOrArray
-     * @param boolean|null $value
+     * @param boolean|mixed $value
      * @throws \Exception
      * @return $this
      */

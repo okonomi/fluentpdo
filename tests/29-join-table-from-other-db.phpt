@@ -3,12 +3,12 @@ FROM table from other database
 --FILE--
 <?php
 include_once dirname(__FILE__) . "/connect.inc.php";
-/* @var $fpdo FluentPDO */
+/* @var $fpdo \FluentPDO\FluentPDO */
 
 $query = $fpdo->from('user')
-		->innerJoin('db2.types ON db2.types.id = user.type')
-		->select('db2.types.*')
-		->getQuery();
+    ->innerJoin('db2.types ON db2.types.id = user.type')
+    ->select('db2.types.*')
+    ->getQuery();
 echo "$query\n";
 
 ?>

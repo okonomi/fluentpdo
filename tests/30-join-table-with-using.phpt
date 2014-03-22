@@ -3,26 +3,26 @@ join using USING
 --FILE--
 <?php
 include_once dirname(__FILE__) . "/connect.inc.php";
-/* @var $fpdo2 FluentPDO */
+/* @var $fpdo2 \FluentPDO\FluentPDO */
 $fluent_structure2 = new \FluentPDO\FluentStructure('%s_id', '%s_id');
 $fpdo2 = new \FluentPDO\FluentPDO($pdo, $fluent_structure2);
 
 $query = $fpdo2->from('article')
-		->innerJoin('user USING (user_id)')
-		->select('user.*')
-		->getQuery();
+    ->innerJoin('user USING (user_id)')
+    ->select('user.*')
+    ->getQuery();
 echo "$query\n";
 
 $query = $fpdo2->from('article')
-		->innerJoin('user u USING (user_id)')
-		->select('u.*')
-		->getQuery();
+    ->innerJoin('user u USING (user_id)')
+    ->select('u.*')
+    ->getQuery();
 echo "$query\n";
 
 $query = $fpdo2->from('article')
-		->innerJoin('user AS u USING (user_id)')
-		->select('u.*')
-		->getQuery();
+    ->innerJoin('user AS u USING (user_id)')
+    ->select('u.*')
+    ->getQuery();
 echo "$query\n";
 
 unset($fluent_structure2);

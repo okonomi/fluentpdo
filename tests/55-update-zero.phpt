@@ -3,7 +3,7 @@ Update with zero value.
 --FILE--
 <?php
 include_once dirname(__FILE__) . "/connect.inc.php";
-/* @var $fpdo FluentPDO */
+/* @var $fpdo \FluentPDO\FluentPDO */
 
 $fpdo->update('article')->set('content', '')->where('id', 1)->execute();
 $user = $fpdo->from('article')->where('id', 1)->fetch();

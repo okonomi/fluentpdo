@@ -3,7 +3,7 @@ add FROM after DELETE if doesn't set
 --FILE--
 <?php
 include_once dirname(__FILE__) . "/connect.inc.php";
-/* @var $fpdo FluentPDO */
+/* @var $fpdo \FluentPDO\FluentPDO */
 
 $query = $fpdo->delete('user', 1)->from('user');
 echo $query->getQuery() . "\n";

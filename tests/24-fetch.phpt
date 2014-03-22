@@ -3,7 +3,7 @@ fetch
 --FILE--
 <?php
 include_once dirname(__FILE__) . "/connect.inc.php";
-/* @var $fpdo FluentPDO */
+/* @var $fpdo \FluentPDO\FluentPDO */
 
 echo $fpdo->from('user', 1)->fetch('name') . "\n";
 print_r($fpdo->from('user', 1)->fetch());

@@ -3,7 +3,7 @@ join in where
 --FILE--
 <?php
 include_once dirname(__FILE__) . "/connect.inc.php";
-/* @var $fpdo FluentPDO */
+/* @var $fpdo \FluentPDO\FluentPDO */
 
 $query = $fpdo->from('article')->select('user.name as author');
 echo $query->getQuery() . "\n";

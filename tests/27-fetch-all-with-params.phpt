@@ -3,7 +3,7 @@ fetch all with params
 --FILE--
 <?php
 include_once dirname(__FILE__) . "/connect.inc.php";
-/* @var $fpdo FluentPDO */
+/* @var $fpdo \FluentPDO\FluentPDO */
 
 $result = $fpdo->from('user')->fetchAll('id', 'type, name');
 print_r($result);

@@ -3,7 +3,7 @@ Basic update
 --FILE--
 <?php
 include_once dirname(__FILE__) . "/connect.inc.php";
-/* @var $fpdo FluentPDO */
+/* @var $fpdo \FluentPDO\FluentPDO */
 
 $query = $fpdo->update('country')->set('name', 'aikavolS')->where('id', 1);
 $query->execute();

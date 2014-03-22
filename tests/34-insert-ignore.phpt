@@ -3,14 +3,15 @@ insert ignore
 --FILE--
 <?php
 include_once dirname(__FILE__) . "/connect.inc.php";
-/* @var $fpdo FluentPDO */
+/* @var $fpdo \FluentPDO\FluentPDO */
 
 $query = $fpdo->insertInto('article',
-		array(
-			'user_id' => 1,
-			'title' => 'new title',
-			'content' => 'new content',
-		))->ignore();
+    array(
+        'user_id' => 1,
+        'title' => 'new title',
+        'content' => 'new content',
+    )
+)->ignore();
 
 echo $query->getQuery() . "\n";
 

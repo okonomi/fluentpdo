@@ -3,16 +3,16 @@ Query with select, group, having, order
 --FILE--
 <?php
 include_once dirname(__FILE__) . "/connect.inc.php";
-/* @var $fpdo FluentPDO */
+/* @var $fpdo \FluentPDO\FluentPDO */
 
 $query = $fpdo
-	->from('user')
-	->select(null)
-	->select('type, count(id) AS type_count')
-	->where('id > ?', 1)
-	->groupBy('type')
-	->having('type_count > ?', 1)
-	->orderBy('name');
+    ->from('user')
+    ->select(null)
+    ->select('type, count(id) AS type_count')
+    ->where('id > ?', 1)
+    ->groupBy('type')
+    ->having('type_count > ?', 1)
+    ->orderBy('name');
 
 echo $query->getQuery() . "\n";
 ?>

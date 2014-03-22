@@ -3,23 +3,23 @@ INSERT with ON DUPLICATE KEY UPDATE
 --FILE--
 <?php
 include_once dirname(__FILE__) . "/connect.inc.php";
-/** @var $fpdo FluentPDO */
+/** @var $fpdo \FluentPDO\FluentPDO */
 
 $query = $fpdo->insertInto('article', array('id' => 1))
-		->onDuplicateKeyUpdate(array(
-			'title' => 'article 1b',
-			'content' => 'content 1b',
-		));
+    ->onDuplicateKeyUpdate(array(
+        'title' => 'article 1b',
+        'content' => 'content 1b',
+    ));
 
 echo $query->getQuery() . "\n";
 echo 'last_inserted_id = ' . $query->execute() . "\n";
 $q = $fpdo->from('article', 1)->fetch();
 print_r($q);
 $query = $fpdo->insertInto('article', array('id' => 1))
-		->onDuplicateKeyUpdate(array(
-			'title' => 'article 1',
-			'content' => 'content 1',
-		))->execute();
+    ->onDuplicateKeyUpdate(array(
+        'title' => 'article 1',
+        'content' => 'content 1',
+    ))->execute();
 echo "last_inserted_id = $query\n";
 $q = $fpdo->from('article', 1)->fetch();
 print_r($q);

@@ -3,13 +3,13 @@ Accept array of columns in select (no aliases)
 --FILE--
 <?php
 include_once dirname(__FILE__) . "/connect.inc.php";
-/* @var $fpdo FluentPDO */
+/* @var $fpdo \FluentPDO\FluentPDO */
 
 $query = $fpdo
-	->from('user')
-	->select(null)
-	->select(array('id', 'name'))
-	->where('id < ?', 2);
+    ->from('user')
+    ->select(null)
+    ->select(array('id', 'name'))
+    ->where('id < ?', 2);
 
 echo $query->getQuery() . "\n";
 print_r($query->getParameters());

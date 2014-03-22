@@ -3,7 +3,7 @@ clause with referenced table before join
 --FILE--
 <?php
 include_once dirname(__FILE__) . "/connect.inc.php";
-/* @var $fpdo FluentPDO */
+/* @var $fpdo \FluentPDO\FluentPDO */
 
 $query = $fpdo->from('article')->select('user.name')->innerJoin('user');
 echo $query->getQuery() . "\n";

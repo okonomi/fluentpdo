@@ -3,12 +3,12 @@ Delete with ORDER BY and LIMIT
 --FILE--
 <?php
 include_once dirname(__FILE__) . "/connect.inc.php";
-/* @var $fpdo FluentPDO */
+/* @var $fpdo \FluentPDO\FluentPDO */
 
 $query = $fpdo->deleteFrom('user')
-	->where('id', 2)
-	->orderBy('name')
-	->limit(1);
+    ->where('id', 2)
+    ->orderBy('name')
+    ->limit(1);
 
 echo $query->getQuery() . "\n";
 print_r($query->getParameters()) . "\n";

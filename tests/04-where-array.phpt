@@ -3,11 +3,11 @@ where(array(...))
 --FILE--
 <?php
 include_once dirname(__FILE__) . "/connect.inc.php";
-/* @var $fpdo FluentPDO */
+/* @var $fpdo \FluentPDO\FluentPDO */
 
 $query = $fpdo->from('user')->where(array(
-	'id' => 2,
-	'type' => 'author',
+    'id' => 2,
+    'type' => 'author',
 ));
 
 echo $query->getQuery() . "\n";

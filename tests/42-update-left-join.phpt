@@ -3,12 +3,12 @@ Basic update
 --FILE--
 <?php
 include_once dirname(__FILE__) . "/connect.inc.php";
-/* @var $fpdo FluentPDO */
+/* @var $fpdo \FluentPDO\FluentPDO */
 
 $query = $fpdo->update('user')
-	->outerJoin('country ON country.id = user.country_id')
-	->set(array('name' => 'keraM', '`type`' => 'author'))
-	->where('id', 1);
+    ->outerJoin('country ON country.id = user.country_id')
+    ->set(array('name' => 'keraM', '`type`' => 'author'))
+    ->where('id', 1);
 
 echo $query->getQuery() . "\n";
 print_r($query->getParameters()) . "\n";

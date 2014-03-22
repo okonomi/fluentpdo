@@ -3,7 +3,7 @@ callable arguments for FluentStructure
 --FILE--
 <?php
 include_once dirname(__FILE__) . "/connect.inc.php";
-/* @var $fpdo FluentPDO */
+/* @var $fpdo \FluentPDO\FluentPDO */
 
 use FluentPDO\FluentStructure;
 

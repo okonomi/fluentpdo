@@ -3,7 +3,7 @@ fetch column
 --FILE--
 <?php
 include_once dirname(__FILE__) . "/connect.inc.php";
-/* @var $fpdo FluentPDO */
+/* @var $fpdo \FluentPDO\FluentPDO */
 
 echo $fpdo->from('user', 1)->fetchColumn() . "\n";
 echo $fpdo->from('user', 1)->fetchColumn(3) . "\n";

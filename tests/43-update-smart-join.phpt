@@ -3,11 +3,11 @@ Update with smart join
 --FILE--
 <?php
 include_once dirname(__FILE__) . "/connect.inc.php";
-/* @var $fpdo FluentPDO */
+/* @var $fpdo \FluentPDO\FluentPDO */
 
 $query = $fpdo->update('user')
-	->set(array('type' => 'author'))
-	->where('country.id', 1);
+    ->set(array('type' => 'author'))
+    ->where('country.id', 1);
 
 echo $query->getQuery() . "\n";
 print_r($query->getParameters()) . "\n";
