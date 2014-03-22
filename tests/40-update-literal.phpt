@@ -7,7 +7,7 @@ include_once dirname(__FILE__) . "/connect.inc.php";
 
 $query = $fpdo->update('article')->set('published_at', new \FluentPDO\FluentLiteral('NOW()'))->where('user_id', 1);
 echo $query->getQuery() . "\n";
-print_r($query->getParameters()) . "\n";
+print_r($query->getParameters());
 ?>
 --EXPECTF--
 UPDATE article SET published_at = NOW()

@@ -12,7 +12,7 @@ $query = $fpdo->delete('t1, t2')
     ->where('t1.id', 1);
 
 echo $query->getQuery() . "\n";
-print_r($query->getParameters()) . "\n";
+print_r($query->getParameters());
 ?>
 --EXPECTF--
 DELETE t1, t2

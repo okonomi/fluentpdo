@@ -7,7 +7,7 @@ include_once dirname(__FILE__) . "/connect.inc.php";
 
 $query = $fpdo->delete('user', 1)->from('user');
 echo $query->getQuery() . "\n";
-print_r($query->getParameters()) . "\n";
+print_r($query->getParameters());
 
 ?>
 --EXPECTF--

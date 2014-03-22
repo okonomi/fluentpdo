@@ -7,7 +7,7 @@ include_once dirname(__FILE__) . "/connect.inc.php";
 
 $query = $fpdo->update('user', array('type' => 'admin'), 1);
 echo $query->getQuery() . "\n";
-print_r($query->getParameters()) . "\n";
+print_r($query->getParameters());
 
 ?>
 --EXPECTF--

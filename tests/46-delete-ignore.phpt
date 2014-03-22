@@ -10,7 +10,7 @@ $query = $fpdo->deleteFrom('user')
     ->where('id', 1);
 
 echo $query->getQuery() . "\n";
-print_r($query->getParameters()) . "\n";
+print_r($query->getParameters());
 ?>
 --EXPECTF--
 DELETE IGNORE

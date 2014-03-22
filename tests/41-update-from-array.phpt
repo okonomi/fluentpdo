@@ -8,7 +8,7 @@ include_once dirname(__FILE__) . "/connect.inc.php";
 $query = $fpdo->update('user')->set(array('name' => 'keraM', '`type`' => 'author'))->where('id', 1);
 $query->execute();
 echo $query->getQuery() . "\n";
-print_r($query->getParameters()) . "\n";
+print_r($query->getParameters());
 
 $query = $fpdo->update('user')->set(array('name' => 'Marek', '`type`' => 'admin'))->where('id', 1);
 $query->execute();

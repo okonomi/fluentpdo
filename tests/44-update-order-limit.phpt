@@ -12,7 +12,7 @@ $query = $fpdo->update('user')
     ->limit(1);
 
 echo $query->getQuery() . "\n";
-print_r($query->getParameters()) . "\n";
+print_r($query->getParameters());
 ?>
 --EXPECTF--
 UPDATE user SET type = ?
