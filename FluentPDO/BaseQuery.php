@@ -160,7 +160,7 @@ abstract class BaseQuery implements \IteratorAggregate
                     $debug = "# parameters: " . implode(", ", array_map([$this, 'quote'], $parameters)) . "\n";
                 }
                 $debug .= $query;
-                $pattern = '(^' . preg_quote(dirname(__FILE__)) . '(\\.php$|[/\\\\]))'; // can be static
+                $pattern = '(^' . preg_quote(__DIR__) . '(\\.php$|[/\\\\]))'; // can be static
                 foreach (debug_backtrace() as $backtrace) {
                     if (isset($backtrace["file"]) && !preg_match($pattern, $backtrace["file"])) {
                         // stop on first file outside FluentPDO source codes

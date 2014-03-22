@@ -2,7 +2,7 @@
 don't create second join if table or alias was joined
 --FILE--
 <?php
-include_once dirname(__FILE__) . "/connect.inc.php";
+include_once __DIR__ . "/connect.inc.php";
 /* @var $fpdo \FluentPDO\FluentPDO */
 
 $query = $fpdo->from('article')->innerJoin('user AS author ON article.user_id = author.id')

@@ -2,7 +2,7 @@
 Update with zero value.
 --FILE--
 <?php
-include_once dirname(__FILE__) . "/connect.inc.php";
+include_once __DIR__ . "/connect.inc.php";
 /* @var $fpdo \FluentPDO\FluentPDO */
 
 $fpdo->update('article')->set('content', '')->where('id', 1)->execute();

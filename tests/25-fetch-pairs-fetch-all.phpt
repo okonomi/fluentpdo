@@ -2,7 +2,7 @@
 fetch pairs, fetch all
 --FILE--
 <?php
-include_once dirname(__FILE__) . "/connect.inc.php";
+include_once __DIR__ . "/connect.inc.php";
 /* @var $fpdo \FluentPDO\FluentPDO */
 
 $result = $fpdo->from('user')->fetchPairs('id', 'name');

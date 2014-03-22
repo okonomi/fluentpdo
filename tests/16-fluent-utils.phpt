@@ -2,7 +2,7 @@
 Basic operations
 --FILE--
 <?php
-include_once dirname(__FILE__) . "/connect.inc.php";
+include_once __DIR__ . "/connect.inc.php";
 
 use FluentPDO\FluentUtils;
 

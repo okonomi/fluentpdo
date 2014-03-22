@@ -2,7 +2,7 @@
 from($table, $id) as User class
 --FILE--
 <?php
-include_once dirname(__FILE__) . "/connect.inc.php";
+include_once __DIR__ . "/connect.inc.php";
 /* @var $fpdo \FluentPDO\FluentPDO */
 
 class User { public $id, $country_id, $type, $name; }

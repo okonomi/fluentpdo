@@ -2,7 +2,7 @@
 join using USING
 --FILE--
 <?php
-include_once dirname(__FILE__) . "/connect.inc.php";
+include_once __DIR__ . "/connect.inc.php";
 /* @var $fpdo2 \FluentPDO\FluentPDO */
 $fluent_structure2 = new \FluentPDO\FluentStructure('%s_id', '%s_id');
 $fpdo2 = new \FluentPDO\FluentPDO($pdo, $fluent_structure2);
