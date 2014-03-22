@@ -7,7 +7,7 @@ namespace FluentPDO;
 abstract class CommonQuery extends BaseQuery
 {
     /** @var array of used tables (also include table from clause FROM) */
-    protected $joins = array();
+    protected $joins = [];
 
     /** @var boolean disable adding undefined joins to query? */
     protected $isSmartJoinEnabled = true;
@@ -34,7 +34,7 @@ abstract class CommonQuery extends BaseQuery
      * @param mixed $parameters array or a scalar value
      * @return SelectQuery
      */
-    public function where($condition, $parameters = array())
+    public function where($condition, $parameters = [])
     {
         if ($condition === null) {
             return $this->resetClause('WHERE');
@@ -71,7 +71,7 @@ abstract class CommonQuery extends BaseQuery
      * @param array $parameters - first is $statement followed by $parameters
      * @return $this|SelectQuery
      */
-    public function __call($clause, $parameters = array())
+    public function __call($clause, $parameters = [])
     {
         $clause = FluentUtils::toUpperWords($clause);
         if ($clause == 'GROUP') {
@@ -102,10 +102,10 @@ abstract class CommonQuery extends BaseQuery
      * @param array $parameters
      * @return $this|SelectQuery
      */
-    private function addJoinStatements($clause, $statement, $parameters = array())
+    private function addJoinStatements($clause, $statement, $parameters = [])
     {
         if ($statement === null) {
-            $this->joins = array();
+            $this->joins = [];
             return $this->resetClause('JOIN');
         }
         if (array_search(substr($statement, 0, -1), $this->joins) !== false) {
@@ -118,7 +118,7 @@ abstract class CommonQuery extends BaseQuery
         $joinTable = '';
         if ($matches) {
             $joinTable = $matches[1];
-            if (isset($matches[4]) && !in_array(strtoupper($matches[4]), array('ON', 'USING'))) {
+            if (isset($matches[4]) && !in_array(strtoupper($matches[4]), ['ON', 'USING'])) {
                 $joinAlias = $matches[4];
             }
         }
@@ -137,7 +137,7 @@ abstract class CommonQuery extends BaseQuery
         }
 
         # $joinTable is list of tables for join e.g.: table1.table2:table3....
-        if (!in_array(substr($joinTable, -1), array('.', ':'))) {
+        if (!in_array(substr($joinTable, -1), ['.', ':'])) {
             $joinTable .= '.';
         }
 
@@ -181,7 +181,7 @@ abstract class CommonQuery extends BaseQuery
      */
     private function createJoinStatement($clause, $mainTable, $joinTable, $joinAlias = '')
     {
-        if (in_array(substr($mainTable, -1), array(':', '.'))) {
+        if (in_array(substr($mainTable, -1), [':', '.'])) {
             $mainTable = substr($mainTable, 0, -1);
         }
         $referenceDirection = substr($joinTable, -1);
@@ -216,11 +216,11 @@ abstract class CommonQuery extends BaseQuery
     protected function buildQuery()
     {
         # first create extra join from statements with columns with referenced tables
-        $statementsWithReferences = array('WHERE', 'SELECT', 'GROUP BY', 'ORDER BY');
+        $statementsWithReferences = ['WHERE', 'SELECT', 'GROUP BY', 'ORDER BY'];
         foreach ($statementsWithReferences as $clause) {
             if (array_key_exists($clause, $this->statements)) {
                 $this->statements[$clause] = array_map(
-                    array($this, 'createUndefinedJoins'),
+                    [$this, 'createUndefinedJoins'],
                     $this->statements[$clause]
                 );
             }

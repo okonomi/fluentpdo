@@ -15,14 +15,14 @@ class UpdateQuery extends CommonQuery
 {
     public function __construct(FluentPDO $fpdo, $table)
     {
-        $clauses = array(
-            'UPDATE' => array($this, 'getClauseUpdate'),
-            'JOIN' => array($this, 'getClauseJoin'),
-            'SET' => array($this, 'getClauseSet'),
+        $clauses = [
+            'UPDATE' => [$this, 'getClauseUpdate'],
+            'JOIN' => [$this, 'getClauseJoin'],
+            'SET' => [$this, 'getClauseSet'],
             'WHERE' => ' AND ',
             'ORDER BY' => ', ',
             'LIMIT' => null,
-        );
+        ];
         parent::__construct($fpdo, $clauses);
 
         $this->statements['UPDATE'] = $table;
@@ -80,7 +80,7 @@ class UpdateQuery extends CommonQuery
 
     protected function getClauseSet()
     {
-        $setArray = array();
+        $setArray = [];
         foreach ($this->statements['SET'] as $field => $value) {
             if ($value instanceof FluentLiteral) {
                 $setArray[] = $field . ' = ' . $value;

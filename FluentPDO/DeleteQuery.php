@@ -18,15 +18,15 @@ class DeleteQuery extends CommonQuery
 
     public function __construct(FluentPDO $fpdo, $table)
     {
-        $clauses = array(
-            'DELETE FROM' => array($this, 'getClauseDeleteFrom'),
-            'DELETE' => array($this, 'getClauseDelete'),
+        $clauses = [
+            'DELETE FROM' => [$this, 'getClauseDeleteFrom'],
+            'DELETE' => [$this, 'getClauseDelete'],
             'FROM' => null,
-            'JOIN' => array($this, 'getClauseJoin'),
+            'JOIN' => [$this, 'getClauseJoin'],
             'WHERE' => ' AND ',
             'ORDER BY' => ', ',
             'LIMIT' => null,
-        );
+        ];
 
         parent::__construct($fpdo, $clauses);
 

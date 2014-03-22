@@ -24,10 +24,10 @@ class SelectQuery extends CommonQuery
 
     public function __construct(FluentPDO $fpdo, $from)
     {
-        $clauses = array(
+        $clauses = [
             'SELECT' => ', ',
             'FROM' => null,
-            'JOIN' => array($this, 'getClauseJoin'),
+            'JOIN' => [$this, 'getClauseJoin'],
             'WHERE' => ' AND ',
             'GROUP BY' => ',',
             'HAVING' => ' AND ',
@@ -35,7 +35,7 @@ class SelectQuery extends CommonQuery
             'LIMIT' => null,
             'OFFSET' => null,
             "\n--" => "\n--",
-        );
+        ];
         parent::__construct($fpdo, $clauses);
 
         # initialize statements
@@ -123,7 +123,7 @@ class SelectQuery extends CommonQuery
             $this->select(null)->select($index . ', ' . $selectOnly);
         }
         if ($index) {
-            $data = array();
+            $data = [];
             foreach ($this as $row) {
                 if (is_object($row)) {
                     $data[$row->{$index}] = $row;

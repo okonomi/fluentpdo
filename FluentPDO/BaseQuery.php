@@ -10,7 +10,7 @@ abstract class BaseQuery implements \IteratorAggregate
     private $fpdo;
 
     /** @var array of definition clauses */
-    protected $clauses = array();
+    protected $clauses = [];
 
     /** @var \PDOStatement */
     private $result;
@@ -21,9 +21,9 @@ abstract class BaseQuery implements \IteratorAggregate
     /** @var bool */
     private $object = false;
 
-    protected $statements = array();
+    protected $statements = [];
 
-    protected $parameters = array();
+    protected $parameters = [];
 
     protected function __construct(FluentPDO $fpdo, $clauses)
     {
@@ -36,8 +36,8 @@ abstract class BaseQuery implements \IteratorAggregate
     {
         foreach ($this->clauses as $clause => $value) {
             if ($value) {
-                $this->statements[$clause] = array();
-                $this->parameters[$clause] = array();
+                $this->statements[$clause] = [];
+                $this->parameters[$clause] = [];
             } else {
                 $this->statements[$clause] = null;
                 $this->parameters[$clause] = null;
@@ -52,7 +52,7 @@ abstract class BaseQuery implements \IteratorAggregate
      * @param array $parameters
      * @return $this|SelectQuery
      */
-    protected function addStatement($clause, $statement, $parameters = array())
+    protected function addStatement($clause, $statement, $parameters = [])
     {
         if ($statement === null) {
             return $this->resetClause($clause);
@@ -80,9 +80,9 @@ abstract class BaseQuery implements \IteratorAggregate
     protected function resetClause($clause)
     {
         $this->statements[$clause] = null;
-        $this->parameters[$clause] = array();
+        $this->parameters[$clause] = [];
         if ($this->clauses[$clause]) {
-            $this->statements[$clause] = array();
+            $this->statements[$clause] = [];
         }
         return $this;
     }
@@ -145,7 +145,7 @@ abstract class BaseQuery implements \IteratorAggregate
                 $parameters = $this->getParameters();
                 $debug = '';
                 if ($parameters) {
-                    $debug = "# parameters: " . implode(", ", array_map(array($this, 'quote'), $parameters)) . "\n";
+                    $debug = "# parameters: " . implode(", ", array_map([$this, 'quote'], $parameters)) . "\n";
                 }
                 $debug .= $query;
                 $pattern = '(^' . preg_quote(dirname(__FILE__)) . '(\\.php$|[/\\\\]))'; // can be static
@@ -252,7 +252,7 @@ abstract class BaseQuery implements \IteratorAggregate
 
     private function buildParameters()
     {
-        $parameters = array();
+        $parameters = [];
         foreach ($this->parameters as $clauses) {
             if (is_array($clauses)) {
                 foreach ($clauses as $value) {
@@ -278,7 +278,7 @@ abstract class BaseQuery implements \IteratorAggregate
             return "NULL";
         }
         if (is_array($value)) { // (a, b) IN ((1, 2), (3, 4))
-            return "(" . implode(", ", array_map(array($this, 'quote'), $value)) . ")";
+            return "(" . implode(", ", array_map([$this, 'quote'], $value)) . ")";
         }
         $value = $this->formatValue($value);
         if (is_float($value)) {

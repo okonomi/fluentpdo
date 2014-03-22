@@ -54,7 +54,7 @@ class FluentPDO
      * @param array $values you can add one or multi rows array @see docs
      * @return InsertQuery
      */
-    public function insertInto($table, $values = array())
+    public function insertInto($table, $values = [])
     {
         $query = new InsertQuery($this, $table, $values);
         return $query;
@@ -68,7 +68,7 @@ class FluentPDO
      *
      * @return UpdateQuery
      */
-    public function update($table, $set = array(), $primaryKey = null)
+    public function update($table, $set = [], $primaryKey = null)
     {
         $query = new UpdateQuery($this, $table);
         $query->set($set);
@@ -104,7 +104,7 @@ class FluentPDO
     public function deleteFrom($table, $primaryKey = null)
     {
         $args = func_get_args();
-        return call_user_func_array(array($this, 'delete'), $args);
+        return call_user_func_array([$this, 'delete'], $args);
     }
 
     /** @return \PDO

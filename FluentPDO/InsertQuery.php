@@ -6,19 +6,19 @@ namespace FluentPDO;
  */
 class InsertQuery extends BaseQuery
 {
-    private $columns = array();
+    private $columns = [];
 
-    private $firstValue = array();
+    private $firstValue = [];
 
     private $ignore = false;
 
     public function __construct(FluentPDO $fpdo, $table, $values)
     {
-        $clauses = array(
-            'INSERT INTO' => array($this, 'getClauseInsertInto'),
-            'VALUES' => array($this, 'getClauseValues'),
-            'ON DUPLICATE KEY UPDATE' => array($this, 'getClauseOnDuplicateKeyUpdate'),
-        );
+        $clauses = [
+            'INSERT INTO' => [$this, 'getClauseInsertInto'],
+            'VALUES' => [$this, 'getClauseValues'],
+            'ON DUPLICATE KEY UPDATE' => [$this, 'getClauseOnDuplicateKeyUpdate'],
+        ];
         parent::__construct($fpdo, $clauses);
 
         $this->statements['INSERT INTO'] = $table;
@@ -90,9 +90,9 @@ class InsertQuery extends BaseQuery
 
     protected function getClauseValues()
     {
-        $valuesArray = array();
+        $valuesArray = [];
         foreach ($this->statements['VALUES'] as $rows) {
-            $quoted = array_map(array($this, 'quote'), $rows);
+            $quoted = array_map([$this, 'quote'], $rows);
             $valuesArray[] = '(' . implode(', ', $quoted) . ')';
         }
         $columns = implode(', ', $this->columns);
@@ -102,7 +102,7 @@ class InsertQuery extends BaseQuery
 
     protected function getClauseOnDuplicateKeyUpdate()
     {
-        $result = array();
+        $result = [];
         foreach ($this->statements['ON DUPLICATE KEY UPDATE'] as $key => $value) {
             $result[] = "$key = " . $this->quote($value);
         }
