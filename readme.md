@@ -111,7 +111,7 @@ $query = $fpdo->insertInto('article', $values);
 ##### UPDATE
 
 ```php
-$set = ['published_at' => new FluentLiteral('NOW()')];
+$set = ['published_at' => new \FluentPDO\FluentLiteral('NOW()')];
 $query = $fpdo->update('article')->set($set)->where('id', 1);
 // or shortly if you update one row by primary key
 $query = $fpdo->update('article', $set, 1);
