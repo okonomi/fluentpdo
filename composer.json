@@ -10,6 +10,9 @@
             "homepage": "http://licht.sk/"
         }
     ],
+    "require": {
+        "php": ">= 5.4.0"
+    },
     "autoload": {
         "psr-4": {
             "FluentPDO\\": "FluentPDO"
