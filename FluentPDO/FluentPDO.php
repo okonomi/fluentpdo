@@ -22,6 +22,10 @@ class FluentPDO
     /** @var boolean|callback */
     public $debug;
 
+    /**
+     * @param \PDO $pdo
+     * @param FluentStructure $structure
+     */
     public function __construct(\PDO $pdo, FluentStructure $structure = null)
     {
         $this->pdo = $pdo;
@@ -31,7 +35,8 @@ class FluentPDO
         $this->structure = $structure;
     }
 
-    /** Create SELECT query from $table
+    /**
+     * Create SELECT query from $table
      * @param string $table db table name
      * @param integer $primaryKey return one row by primary key
      * @return SelectQuery
@@ -48,8 +53,8 @@ class FluentPDO
         return $query;
     }
 
-    /** Create INSERT INTO query
-     *
+    /**
+     * Create INSERT INTO query
      * @param string $table
      * @param array $values you can add one or multi rows array @see docs
      * @return InsertQuery
@@ -60,8 +65,8 @@ class FluentPDO
         return $query;
     }
 
-    /** Create UPDATE query
-     *
+    /**
+     * Create UPDATE query
      * @param string $table
      * @param array|string $set
      * @param string $primaryKey
@@ -79,8 +84,8 @@ class FluentPDO
         return $query;
     }
 
-    /** Create DELETE query
-     *
+    /**
+     * Create DELETE query
      * @param string $table
      * @param string $primaryKey delete only row by primary key
      * @return DeleteQuery
@@ -95,8 +100,8 @@ class FluentPDO
         return $query;
     }
 
-    /** Create DELETE FROM query
-     *
+    /**
+     * Create DELETE FROM query
      * @param string $table
      * @param string $primaryKey
      * @return DeleteQuery
@@ -107,14 +112,16 @@ class FluentPDO
         return call_user_func_array([$this, 'delete'], $args);
     }
 
-    /** @return \PDO
+    /**
+     * @return \PDO
      */
     public function getPdo()
     {
         return $this->pdo;
     }
 
-    /** @return FluentStructure
+    /**
+     * @return FluentStructure
      */
     public function getStructure()
     {

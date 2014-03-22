@@ -25,6 +25,10 @@ abstract class BaseQuery implements \IteratorAggregate
 
     protected $parameters = [];
 
+    /**
+     * @param FluentPDO $fpdo
+     * @param array $clauses
+     */
     protected function __construct(FluentPDO $fpdo, array $clauses)
     {
         $this->fpdo = $fpdo;
@@ -32,6 +36,9 @@ abstract class BaseQuery implements \IteratorAggregate
         $this->initClauses();
     }
 
+    /**
+     *
+     */
     private function initClauses()
     {
         foreach ($this->clauses as $clause => $value) {
@@ -47,8 +54,8 @@ abstract class BaseQuery implements \IteratorAggregate
 
     /**
      * Add statement for all kind of clauses
-     * @param $clause
-     * @param $statement
+     * @param string $clause
+     * @param string|array $statement
      * @param array $parameters
      * @return $this|SelectQuery
      */
@@ -74,7 +81,7 @@ abstract class BaseQuery implements \IteratorAggregate
 
     /**
      * Remove all prev defined statements
-     * @param $clause
+     * @param string $clause
      * @return $this
      */
     protected function resetClause($clause)
@@ -87,7 +94,8 @@ abstract class BaseQuery implements \IteratorAggregate
         return $this;
     }
 
-    /** Implements method from IteratorAggregate
+    /**
+     * Implements method from IteratorAggregate
      * @return \PDOStatement
      */
     public function getIterator()
@@ -95,7 +103,8 @@ abstract class BaseQuery implements \IteratorAggregate
         return $this->execute();
     }
 
-    /** Execute query with earlier added parameters
+    /**
+     * Execute query with earlier added parameters
      * @return \PDOStatement
      */
     public function execute()
@@ -136,6 +145,9 @@ abstract class BaseQuery implements \IteratorAggregate
         return $result;
     }
 
+    /**
+     *
+     */
     private function debugger()
     {
         if ($this->fpdo->debug) {
@@ -180,7 +192,8 @@ abstract class BaseQuery implements \IteratorAggregate
         return $this->fpdo->getStructure();
     }
 
-    /** Get PDOStatement result
+    /**
+     * Get PDOStatement result
      * @return \PDOStatement
      */
     public function getResult()
@@ -188,7 +201,8 @@ abstract class BaseQuery implements \IteratorAggregate
         return $this->result;
     }
 
-    /** Get time of execution
+    /**
+     * Get time of execution
      * @return float
      */
     public function getTime()
@@ -196,7 +210,8 @@ abstract class BaseQuery implements \IteratorAggregate
         return $this->time;
     }
 
-    /** Get query parameters
+    /**
+     * Get query parameters
      * @return array
      */
     public function getParameters()
@@ -204,7 +219,8 @@ abstract class BaseQuery implements \IteratorAggregate
         return $this->buildParameters();
     }
 
-    /** Get query string
+    /**
+     * Get query string
      * @param boolean $formated return formated query
      * @return string
      */
@@ -241,6 +257,10 @@ abstract class BaseQuery implements \IteratorAggregate
         return trim($query);
     }
 
+    /**
+     * @param string $clause
+     * @return boolean
+     */
     private function clauseNotEmpty($clause)
     {
         if ($this->clauses[$clause]) {
@@ -250,6 +270,9 @@ abstract class BaseQuery implements \IteratorAggregate
         }
     }
 
+    /**
+     * @return array
+     */
     private function buildParameters()
     {
         $parameters = [];
@@ -272,6 +295,10 @@ abstract class BaseQuery implements \IteratorAggregate
         return $parameters;
     }
 
+    /**
+     * @param mixed|FluentLiteral $value
+     * @return string
+     */
     protected function quote($value)
     {
         if (!isset($value)) {
@@ -293,6 +320,10 @@ abstract class BaseQuery implements \IteratorAggregate
         return $this->fpdo->getPdo()->quote($value);
     }
 
+    /**
+     * @param mixed|\DateTime $val
+     * @return string
+     */
     private function formatValue($val)
     {
         if ($val instanceof \DateTime) {

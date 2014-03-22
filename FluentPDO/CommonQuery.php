@@ -12,24 +12,34 @@ abstract class CommonQuery extends BaseQuery
     /** @var boolean disable adding undefined joins to query? */
     protected $isSmartJoinEnabled = true;
 
+    /**
+     * @return $this
+     */
     public function enableSmartJoin()
     {
         $this->isSmartJoinEnabled = true;
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function disableSmartJoin()
     {
         $this->isSmartJoinEnabled = false;
         return $this;
     }
 
+    /**
+     * @return boolean
+     */
     public function isSmartJoinEnabled()
     {
         return $this->isSmartJoinEnabled;
     }
 
-    /** Add where condition, more calls appends with AND
+    /**
+     * Add where condition, more calls appends with AND
      * @param string $condition possibly containing ? or :name (PDO syntax)
      * @param mixed $parameters array or a scalar value
      * @return SelectQuery
@@ -67,7 +77,7 @@ abstract class CommonQuery extends BaseQuery
     }
 
     /**
-     * @param $clause
+     * @param string $clause
      * @param array $parameters - first is $statement followed by $parameters
      * @return $this|SelectQuery
      */
@@ -90,6 +100,9 @@ abstract class CommonQuery extends BaseQuery
         return $this->addStatement($clause, $statement, $parameters);
     }
 
+    /**
+     * @return string
+     */
     protected function getClauseJoin()
     {
         return implode(' ', $this->statements['JOIN']);
@@ -97,8 +110,8 @@ abstract class CommonQuery extends BaseQuery
 
     /**
      * Statement can contain more tables (e.g. "table1.table2:table3:")
-     * @param $clause
-     * @param $statement
+     * @param string $clause
+     * @param string $statement
      * @param array $parameters
      * @return $this|SelectQuery
      */
@@ -173,9 +186,9 @@ abstract class CommonQuery extends BaseQuery
 
     /**
      * Create join string
-     * @param $clause
-     * @param $mainTable
-     * @param $joinTable
+     * @param string $clause
+     * @param string $mainTable
+     * @param string $joinTable
      * @param string $joinAlias
      * @return string
      */
@@ -229,7 +242,8 @@ abstract class CommonQuery extends BaseQuery
         return parent::buildQuery();
     }
 
-    /** Create undefined joins from statement with column with referenced tables
+    /**
+     * Create undefined joins from statement with column with referenced tables
      * @param string $statement
      * @return string  rewrited $statement (e.g. tab1.tab2:col => tab2.col)
      */

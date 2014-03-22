@@ -22,6 +22,10 @@ class SelectQuery extends CommonQuery
 
     private $fromAlias;
 
+    /**
+     * @param FluentPDO $fpdo
+     * @param string $from
+     */
     public function __construct(FluentPDO $fpdo, $from)
     {
         $clauses = [
@@ -48,7 +52,8 @@ class SelectQuery extends CommonQuery
         $this->joins[] = $this->fromAlias;
     }
 
-    /** Return table name from FROM clause
+    /**
+     * Return table name from FROM clause
      * @internal
      */
     public function getFromTable()
@@ -56,7 +61,8 @@ class SelectQuery extends CommonQuery
         return $this->fromTable;
     }
 
-    /** Return table alias from FROM clause
+    /**
+     * Return table alias from FROM clause
      * @internal
      */
     public function getFromAlias()
@@ -64,8 +70,9 @@ class SelectQuery extends CommonQuery
         return $this->fromAlias;
     }
 
-    /** Returns a single column
-     * @param int $columnNumber
+    /**
+     * Returns a single column
+     * @param integer $columnNumber
      * @return string
      */
     public function fetchColumn($columnNumber = 0)
@@ -76,7 +83,8 @@ class SelectQuery extends CommonQuery
         return false;
     }
 
-    /** Fetch first row or column
+    /**
+     * Fetch first row or column
      * @param string $column column name or empty string for the whole row
      * @return mixed string, array or false if there is no row
      */
@@ -112,7 +120,8 @@ class SelectQuery extends CommonQuery
         return false;
     }
 
-    /** Fetch all row
+    /**
+     * Fetch all row
      * @param string $index specify index column
      * @param string $selectOnly select columns which could be fetched
      * @return array of fetched rows

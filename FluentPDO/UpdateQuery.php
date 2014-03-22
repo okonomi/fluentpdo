@@ -13,6 +13,10 @@ namespace FluentPDO;
  */
 class UpdateQuery extends CommonQuery
 {
+    /**
+     * @param FluentPDO $fpdo
+     * @param string $table
+     */
     public function __construct(FluentPDO $fpdo, $table)
     {
         $clauses = [
@@ -33,7 +37,7 @@ class UpdateQuery extends CommonQuery
 
     /**
      * @param string|array $fieldOrArray
-     * @param bool|null $value
+     * @param boolean|null $value
      * @throws \Exception
      * @return $this
      */
@@ -59,7 +63,8 @@ class UpdateQuery extends CommonQuery
         return $this;
     }
 
-    /** Execute update query
+    /**
+     * Execute update query
      * @param boolean $getResultAsPdoStatement true to return the pdo statement instead of row count
      * @return int|boolean|\PDOStatement
      */
@@ -75,11 +80,17 @@ class UpdateQuery extends CommonQuery
         return false;
     }
 
+    /**
+     * @return string
+     */
     protected function getClauseUpdate()
     {
         return 'UPDATE ' . $this->statements['UPDATE'];
     }
 
+    /**
+     * @return string
+     */
     protected function getClauseSet()
     {
         $setArray = [];

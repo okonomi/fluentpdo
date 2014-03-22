@@ -4,7 +4,8 @@ namespace FluentPDO;
 
 class FluentUtils
 {
-    /** Convert "camelCaseWord" to "CAMEL CASE WORD"
+    /**
+     * Convert "camelCaseWord" to "CAMEL CASE WORD"
      * @param string $string
      * @return string
      */
@@ -13,6 +14,10 @@ class FluentUtils
         return trim(strtoupper(preg_replace('#(.)([A-Z]+)#', '$1 $2', $string)));
     }
 
+    /**
+     * @param $query
+     * @return mixed
+     */
     public static function formatQuery($query)
     {
         $query = preg_replace(

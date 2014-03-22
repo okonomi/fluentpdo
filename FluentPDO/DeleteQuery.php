@@ -16,6 +16,10 @@ class DeleteQuery extends CommonQuery
 {
     private $ignore = false;
 
+    /**
+     * @param FluentPDO $fpdo
+     * @param string $table
+     */
     public function __construct(FluentPDO $fpdo, $table)
     {
         $clauses = [
@@ -34,7 +38,8 @@ class DeleteQuery extends CommonQuery
         $this->statements['DELETE'] = $table;
     }
 
-    /** DELETE IGNORE - Delete operation fails silently
+    /**
+     * DELETE IGNORE - Delete operation fails silently
      * @return DeleteQuery
      */
     public function ignore()
@@ -56,7 +61,8 @@ class DeleteQuery extends CommonQuery
         return parent::buildQuery();
     }
 
-    /** Execute DELETE query
+    /**
+     * Execute DELETE query
      * @return boolean
      */
     public function execute()
@@ -68,11 +74,17 @@ class DeleteQuery extends CommonQuery
         return false;
     }
 
+    /**
+     * @return string
+     */
     protected function getClauseDelete()
     {
         return 'DELETE' . ($this->ignore ? " IGNORE" : '') . ' ' . $this->statements['DELETE'];
     }
 
+    /**
+     * @return string
+     */
     protected function getClauseDeleteFrom()
     {
         return 'DELETE' . ($this->ignore ? " IGNORE" : '') . ' FROM ' . $this->statements['DELETE FROM'];
