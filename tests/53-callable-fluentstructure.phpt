@@ -15,7 +15,7 @@ echo $structure->getForeignKey('user') . "\n";
 echo $structure->getPrimaryKey('user') . "\n";
 
 $prefix = 'prefix_';
-$structure = new FluentStructure(function($table) use($prefix) {
+$structure = new FluentStructure(function ($table) use ($prefix) {
     $table = substr($table, 0, strlen($prefix)) == $prefix ? substr($table, strlen($prefix)) : $table;
     return $table.'_id';
 }, null);

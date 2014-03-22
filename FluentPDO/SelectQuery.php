@@ -11,8 +11,10 @@ namespace FluentPDO;
  * @method SelectQuery  innerJoin(string $statement) add INNER JOIN to query
  *                        ($statement can be 'table' name only or 'table:' means back reference)
  * @method SelectQuery  groupBy(string $column) add GROUP BY to query
+ * @method SelectQuery  group(string $column) add GROUP BY to query
  * @method SelectQuery  having(string $column) add HAVING query
  * @method SelectQuery  orderBy(string $column) add ORDER BY to query
+ * @method SelectQuery  order(string $column) add ORDER BY to query
  * @method SelectQuery  limit(int $limit) add LIMIT to query
  * @method SelectQuery  offset(int $offset) add OFFSET to query
  */

@@ -8,6 +8,8 @@ namespace FluentPDO;
  *                        ($statement can be 'table' name only or 'table:' means back reference)
  * @method UpdateQuery  innerJoin(string $statement) add INNER JOIN to query
  *                        ($statement can be 'table' name only or 'table:' means back reference)
+ * @method UpdateQuery  outerJoin(string $statement) add OUTER JOIN to query
+ *                        ($statement can be 'table' name only or 'table:' means back reference)
  * @method UpdateQuery  orderBy(string $column) add ORDER BY to query
  * @method UpdateQuery  limit(int $limit) add LIMIT to query
  */

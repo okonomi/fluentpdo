@@ -10,7 +10,7 @@ include_once __DIR__ . "/connect.inc.php";
  * $fpdo->debug = $callback;  // see below
  */
 
-$fpdo->debug = function ($BaseQuery) {
+$fpdo->debug = function (\FluentPDO\BaseQuery $BaseQuery) {
     echo "query: " . $BaseQuery->getQuery(false) . "\n";
     echo "parameters: " . implode(', ', $BaseQuery->getParameters()) . "\n";
     echo "rowCount: " . $BaseQuery->getResult()->rowCount() . "\n";

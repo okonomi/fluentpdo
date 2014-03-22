@@ -5,7 +5,8 @@ insert into
 include_once __DIR__ . "/connect.inc.php";
 /* @var $fpdo \FluentPDO\FluentPDO */
 
-$query = $fpdo->insertInto('article',
+$query = $fpdo->insertInto(
+    'article',
     array(
         'user_id' => 1,
         'title' => 'new title',

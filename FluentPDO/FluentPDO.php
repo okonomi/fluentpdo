@@ -70,7 +70,6 @@ class FluentPDO
      * @param string $table
      * @param array|string $set
      * @param string $primaryKey
-     *
      * @return UpdateQuery
      */
     public function update($table, $set = [], $primaryKey = null)
