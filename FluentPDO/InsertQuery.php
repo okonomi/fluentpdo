@@ -12,7 +12,7 @@ class InsertQuery extends BaseQuery
 
     private $ignore = false;
 
-    public function __construct(FluentPDO $fpdo, $table, $values)
+    public function __construct(FluentPDO $fpdo, $table, array $values)
     {
         $clauses = [
             'INSERT INTO' => [$this, 'getClauseInsertInto'],
@@ -41,7 +41,7 @@ class InsertQuery extends BaseQuery
      * @param array $values
      * @return InsertQuery
      */
-    public function onDuplicateKeyUpdate($values)
+    public function onDuplicateKeyUpdate(array $values)
     {
         $this->statements['ON DUPLICATE KEY UPDATE'] = array_merge(
             $this->statements['ON DUPLICATE KEY UPDATE'],
@@ -56,7 +56,7 @@ class InsertQuery extends BaseQuery
      * @return InsertQuery
      * @throws \Exception
      */
-    public function values($values)
+    public function values(array $values)
     {
         if (!is_array($values)) {
             throw new \Exception('Param VALUES for INSERT query must be array');
@@ -110,7 +110,7 @@ class InsertQuery extends BaseQuery
     }
 
 
-    private function addOneValue($oneValue)
+    private function addOneValue(array $oneValue)
     {
         # check if all $keys are strings
         foreach ($oneValue as $key => $value) {

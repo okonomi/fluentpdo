@@ -71,7 +71,7 @@ abstract class CommonQuery extends BaseQuery
      * @param array $parameters - first is $statement followed by $parameters
      * @return $this|SelectQuery
      */
-    public function __call($clause, $parameters = [])
+    public function __call($clause, array $parameters = [])
     {
         $clause = FluentUtils::toUpperWords($clause);
         if ($clause == 'GROUP') {
@@ -102,7 +102,7 @@ abstract class CommonQuery extends BaseQuery
      * @param array $parameters
      * @return $this|SelectQuery
      */
-    private function addJoinStatements($clause, $statement, $parameters = [])
+    private function addJoinStatements($clause, $statement, array $parameters = [])
     {
         if ($statement === null) {
             $this->joins = [];

@@ -54,7 +54,7 @@ class FluentPDO
      * @param array $values you can add one or multi rows array @see docs
      * @return InsertQuery
      */
-    public function insertInto($table, $values = [])
+    public function insertInto($table, array $values = [])
     {
         $query = new InsertQuery($this, $table, $values);
         return $query;

@@ -25,7 +25,7 @@ abstract class BaseQuery implements \IteratorAggregate
 
     protected $parameters = [];
 
-    protected function __construct(FluentPDO $fpdo, $clauses)
+    protected function __construct(FluentPDO $fpdo, array $clauses)
     {
         $this->fpdo = $fpdo;
         $this->clauses = $clauses;
@@ -52,7 +52,7 @@ abstract class BaseQuery implements \IteratorAggregate
      * @param array $parameters
      * @return $this|SelectQuery
      */
-    protected function addStatement($clause, $statement, $parameters = [])
+    protected function addStatement($clause, $statement, array $parameters = [])
     {
         if ($statement === null) {
             return $this->resetClause($clause);
