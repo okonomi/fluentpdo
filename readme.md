@@ -29,19 +29,11 @@ Add in your `composer.json`:
 
 then update your dependencies with `composer update`.
 
-### Copy
-
-If you are not familiar with composer just copy `/FluentPDO` directory into your `libs/` directory then:
-
-```php
-include "libs/FluentPDO/FluentPDO.php";
-```
-
 ## Start usage
 
 ```php
 $pdo = new PDO("mysql:dbname=fblog", "root");
-$fpdo = new FluentPDO($pdo);
+$fpdo = new \FluentPDO\FluentPDO($pdo);
 ```
 
 ## First example
@@ -110,7 +102,7 @@ $query = $fpdo->from('user', 1);
 ##### INSERT
 
 ```php
-$values = array('title' => 'article 1', 'content' => 'content 1');
+$values = ['title' => 'article 1', 'content' => 'content 1'];
 $query = $fpdo->insertInto('article')->values($values);
 // or shortly
 $query = $fpdo->insertInto('article', $values);
@@ -119,7 +111,7 @@ $query = $fpdo->insertInto('article', $values);
 ##### UPDATE
 
 ```php
-$set = array('published_at' => new FluentLiteral('NOW()'));
+$set = ['published_at' => new FluentLiteral('NOW()')];
 $query = $fpdo->update('article')->set($set)->where('id', 1);
 // or shortly if you update one row by primary key
 $query = $fpdo->update('article', $set, 1);
